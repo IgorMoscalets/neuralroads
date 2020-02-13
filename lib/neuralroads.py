@@ -15,8 +15,11 @@ class NeuralRoads():
 
 		with open(self.PATH) as dataset:
 			data_unsorted = json.load(dataset)
-			data = sorted(data_unsorted,
+			data_all = sorted(data_unsorted,
 				key=lambda x: datetime.strptime(x['Date of Count'], '%m/%d/%Y'))
+			data = data_all
+
+			self.data_test = data_all[1000:]
 
 			self.data_sorted = data
 
@@ -53,6 +56,7 @@ class NeuralRoads():
 						{"volume": x["Vehicle Volume By Each Direction of Traffic"].split("/")[1].split(": ")[1],
 						"dayofweek": date_obj.weekday(),
 						"street": str(x["Street"])})
+			self.maxfromvol = max_fromvol
 
 
 	def route_from(self):
@@ -76,3 +80,9 @@ class NeuralRoads():
 	def max_longitude(self):
 		longitude_arr = [x["Longitude"] for x in self.data_sorted]
 		return max(longitude_arr)
+
+	def max_fromvolume(self):
+		return self.maxfromvol
+
+	def get_test_data_sorted(self):
+		return self.data_test
