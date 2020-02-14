@@ -19,7 +19,7 @@ class NeuralRoads():
 				key=lambda x: datetime.strptime(x['Date of Count'], '%m/%d/%Y'))
 			data = data_all
 
-			self.data_test = data_all[1000:]
+			self.data_test = data_all
 
 			self.data_sorted = data
 
@@ -29,6 +29,7 @@ class NeuralRoads():
 			for x in data:
 				self.routes_frommeasur[str(x["Traffic Volume Count Location  Address"])] = []
 			for x in data:
+				#print x
 				date_obj = datetime.strptime(x["Date of Count"], '%m/%d/%Y')
 				# print x["Date of Count"]
 
@@ -52,6 +53,7 @@ class NeuralRoads():
 				if "Oneway" in x["Vehicle Volume By Each Direction of Traffic"]:
 					self.routes_tomeasur[str(x["Traffic Volume Count Location  Address"])].append("ONEWAY")
 				else:
+					#print x["Vehicle Volume By Each Direction of Traffic"]
 					self.routes_tomeasur[str(x["Traffic Volume Count Location  Address"])].append(
 						{"volume": x["Vehicle Volume By Each Direction of Traffic"].split("/")[1].split(": ")[1],
 						"dayofweek": date_obj.weekday(),
