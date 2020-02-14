@@ -86,7 +86,7 @@ print x1.shape, "SHAPE X1"
 
 model = keras.Sequential([keras.layers.Dense(units=1, input_shape=[1203])])
 model.compile(optimizer='sgd', loss='mean_squared_error')
-model.fit(x1,y1, batch_size=2, epochs=200)
+model.fit(x1,y1, batch_size=4, epochs=100)
 
 print len(x1)
 
